@@ -1,7 +1,11 @@
 <?php
-
 session_start();
 
+// Destroy all session data
+session_unset();
 session_destroy();
 
-header('location: ../login.php');
+// Redirect to login page
+header('Location: ../login.php');
+exit(); // Ensure script execution stops after redirection
+?>
