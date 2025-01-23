@@ -1,17 +1,11 @@
 <?php
-
 session_start();
 
-// session_destroy();
-// print_r($_SESSION);
-
+// Check if user session exists, redirect to home page if true
 if (isset($_SESSION['user'])) {
-    // echo "ok";
-
-    header("location: ./home.php");
+    header("Location: home.php");
+    exit(); // Added exit to stop further script execution
 }
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,19 +19,21 @@ if (isset($_SESSION['user'])) {
     <div class="container">
         <div class="box form-box">
             <header>Login</header>
-            <form action="logInProcess" method="post">
+            <form action="logInProcess.php" method="post">
                 <div class="field input">
-                <input type="email" placeholder="Email" name="email" value="<?php echo isset($_POST['email']) ? $_POST['email']: "" ?>"><br>
+                    <input type="email" placeholder="Email" name="email" 
+                        value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>" required>
                 </div>
 
                 <div class="field input">
                     <label for="password">Password</label>
-                    <input type="password" placeholder="Password" name="password"><br>
+                    <input type="password" placeholder="Password" name="password" required>
                 </div>
 
                 <div class="field">
-                    <input type="submit" name="submit" class="btn" value="Login" required >
+                    <input type="submit" name="submit" class="btn" value="Login">
                 </div>
+
                 <div class="links">
                     Don't have an account? <a href="register.php">Signup</a>
                 </div>
